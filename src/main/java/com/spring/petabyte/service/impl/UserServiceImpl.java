@@ -1,6 +1,5 @@
 package com.spring.petabyte.service.impl;
 
-import com.spring.petabyte.dto.ResponseDto;
 import com.spring.petabyte.dto.user.UserDto;
 import com.spring.petabyte.dto.user.UserRegisterDto;
 import com.spring.petabyte.entity.User;
@@ -24,16 +23,20 @@ public class UserServiceImpl implements UserService {
     private final MailSenderService mailSender;
 
     @Override
-    public ResponseDto<UserDto> registerUser(UserRegisterDto userDto) throws LoginExistsException, NotFoundException {
+    public UserDto registerUser(UserRegisterDto userDto) throws LoginExistsException, NotFoundException {
         Optional<User> byCode = userRepository.findByCode(userDto.getEmail());
         if (byCode.isPresent())
             throw new LoginExistsException(String.format("Пользователь с почтой '%s' уже существует", userDto.getEmail()));
         String password = authUtils.generateRandomPassword();
         userDto.setPassword(password);
         User newUser = userMapper.toNewUser(userDto);
+        if (newUser.getId() == null) {
+            newUser.setBlocked(false);
+            newUser.setEnabled(true);
+        }
         User savedUser = userRepository.save(newUser);
-        sendMessage(savedUser.getUsername(), savedUser.getPassword());
-        return new ResponseDto<>("success", userMapper.toDto(savedUser));
+        sendMessage(savedUser.getUsername(), password);
+        return userMapper.toDto(savedUser, null);
     }
 
     private void sendMessage(String username, String password) {

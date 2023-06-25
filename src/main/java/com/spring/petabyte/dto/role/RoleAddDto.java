@@ -21,6 +21,6 @@ public class RoleAddDto {
     @NotEmpty(message = "Значение не должно быть пустым")
     private String value;
 
-    @NotNull
+    @NotNull(message = "Разрешения не должны быть пустыми")
     private Set<PermissionDto> permissions;
 }

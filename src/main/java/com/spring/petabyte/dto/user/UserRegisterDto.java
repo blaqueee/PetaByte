@@ -29,6 +29,9 @@ public class UserRegisterDto {
     @NotNull(message = "Роль обязательная к заполнению")
     private Long roleId;
 
+    @NotNull(message = "Отдел не должен быть пустым")
+    private Long departmentId;
+
     private String password;
 
 }
