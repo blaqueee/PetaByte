@@ -1,17 +1,17 @@
 package com.spring.petabyte.utils;
 
 import com.spring.petabyte.entity.User;
-import javax.validation.constraints.NotNull;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 @Configuration
-@EnableJpaAuditing(auditorAwareRef = "getCurrentAuditor")
+@EnableJpaAuditing
 public class SpringSecurityAuditorAware implements AuditorAware<User> {
 
     @Override

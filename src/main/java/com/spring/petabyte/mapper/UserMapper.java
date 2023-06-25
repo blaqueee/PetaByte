@@ -26,8 +26,10 @@ public abstract class UserMapper {
     @Mapping(target = "role", expression = "java(roleRepository.findById(dto.getRoleId()).orElseThrow(() -> new NotFoundException(\"Роль не найдена\")))")
     @Mapping(target = "code", expression = "java(dto.getEmail())")
     @Mapping(target = "password", expression = "java(authUtils.encryptPassword(dto.getPassword()))")
+    @Mapping(target = "phoneNumber", expression = "java(dto.getPhoneNumber())")
     public abstract User toNewUser(UserRegisterDto dto) throws NotFoundException;
 
     @Mapping(target = "accessToken", source = "accessToken")
+    @Mapping(target = "phoneNumber", expression = "java(user.getPhoneNumber())")
     public abstract UserDto toDto(User user, String accessToken);
 }

@@ -2,6 +2,7 @@ package com.spring.petabyte.entity;
 
 import javax.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity implements UserDetails {
@@ -30,14 +31,17 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "middle_name")
     private String middleName;
 
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
     @ManyToOne(cascade = CascadeType.ALL)
     private Department department;
 
-    @Column(name = "is_blocked", columnDefinition = "boolean default false")
-    private Boolean isBlocked;
+    @Column(name = "is_blocked")
+    private boolean isBlocked = false;
 
     @Column(name = "is_enabled", columnDefinition = "boolean default true")
-    private Boolean isEnabled;
+    private boolean isEnabled = true;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Role role;
