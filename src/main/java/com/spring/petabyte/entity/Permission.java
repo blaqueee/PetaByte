@@ -1,15 +1,20 @@
 package com.spring.petabyte.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "permissions")
 public class Permission extends BaseEntity {
@@ -19,5 +24,4 @@ public class Permission extends BaseEntity {
 
     @Column(name = "value")
     private String value;
-
 }

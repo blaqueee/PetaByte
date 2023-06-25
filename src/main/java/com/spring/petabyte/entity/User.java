@@ -30,6 +30,9 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "middle_name")
     private String middleName;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Department department;
+
     @Column(name = "is_blocked", columnDefinition = "boolean default false")
     private Boolean isBlocked;
 
